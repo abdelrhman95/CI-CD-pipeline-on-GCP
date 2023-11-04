@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                git branch: 'master', url: 'https://github.com/abdelrhman95/GCP-Terraform-Node.jsApp'
+            }
+        }
+        stage('authenticate docker registry') {
+            steps {
+                
+                script {
+                    def access_token = sh(script: 'gcloud auth print-access-token', returnStdout: true).trim()
+                    sh "docker login -u oauth2accesstoken -p \"$access_token\" asia-east1-docker.pkg.dev"
+                    }
+               
+            }
+        }
+
+        stage('Build and push docker image to Artifact Registry') {
+            steps {
+                dir('Docker'){
+                script {
+                    sh 'git clone https://github.com/atefhares/DevOps-Challenge-Demo-Code' 
+                    sh 'cd DevOps-Challenge-Demo-Code'
+                    sh 'docker build -t asia-east1-docker.pkg.dev/molten-snowfall-401102/my-repository/python-app:1.1  .'
+                    sh 'docker push asia-east1-docker.pkg.dev/molten-snowfall-401102/my-repository/python-app:1.1'
+                }
+                 }
+            }
+            
+        }
+
+        stage('apply deployment to GKE cluster') {
+            steps {
+                dir('kubernetes'){
+                script {
+                sh 'gcloud container clusters get-credentials my-gke-cluster --zone asia-east1--project "molten-snowfall-401102"'
+
+                sh 'kubectl apply -f kubernetes/ '
+            }
+             }
+            }
+        }
+    }
+}

@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+    parameters {
+        choice choices: ['Apply', 'Destroy'], name: 'action'
+    } 
+
+    stages {
+        stage('Git Clone') {
+            steps {
+                git branch: 'master', url: 'https://github.com/abdelrhman95/GCP-Terraform-Node.jsApp'
+            }
+        }
+        stage('Print user option') {
+            steps {
+                sh "echo ${params.action}"
+            }
+        }
+        stage('Terraform Init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('Apply User Action') {
+            steps {
+                script {
+                def action_value = params.action
+
+                if (action_value == 'Apply') {
+                    sh 'terraform apply -auto-approve' 
+                } else if (action_value == 'Destroy') {
+                    sh 'terraform destroy -auto-approve' 
+                }
+            }
+        }
+        }
+        stage('Stage Name') {
+            steps {
+                script {
+                    def action_value = params.action
+    
+                    if (action_value == 'Apply') {
+                        // then trigger the kubernetes-pipeline
+                        build(job: 'kubernetes-pipeline') 
+                    }
+                    else if (action_value == 'Destroy') {
+                        sh "echo pass" 
+                    }
+                
+                }
+            }
+        }
+    }
+}
