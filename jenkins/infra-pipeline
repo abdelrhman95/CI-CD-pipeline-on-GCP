@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Git Clone') {
             steps {
-                git branch: 'master', url: 'https://github.com/abdelrhman95/GCP-Terraform-Node.jsApp'
+                git branch: 'master', url: 'YOUR_REPO'
             }
         }
         stage('Print user option') {
