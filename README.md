@@ -25,4 +25,16 @@ In this project, we deployed a simple Python web application using Jenkins CI/CD
 
 ![Screenshot from 2023-11-05 03-39-38](https://github.com/abdelrhman95/CI-CD-pipeline-on-GCP/assets/58826560/db3d50c3-712a-4b33-bce7-b1930e686d94)
 
+# Conclusion
+
+In conclusion, this repository serves as a demonstration of how to create an automated CI/CD pipline using Jenkins to automate GCP infra and deploy to GKE. By following the instructions in this repository, you can learn how to :
+
+   * Containerize a simple application written in Python
+   * Using jenkins CI/CD Platform to automate our cycle
+   * Using Artifact Registry to manage application container image
+   * Deployment will be on GKE
+    * Apply DevOps best practices by setting up a development environment
+
+# Contact
+If you have any questions, please contact me at abdelrhman.sayed.ibrahim@gmail.com 
 
