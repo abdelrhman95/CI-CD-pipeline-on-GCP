@@ -33,7 +33,7 @@ In conclusion, this repository serves as a demonstration of how to create an aut
    * Using jenkins CI/CD Platform to automate our cycle
    * Using Artifact Registry to manage application container image
    * Deployment will be on GKE
-    * Apply DevOps best practices by setting up a development environment
+   * Apply DevOps best practices by setting up a development environment
 
 # Contact
 If you have any questions, please contact me at abdelrhman.sayed.ibrahim@gmail.com 
