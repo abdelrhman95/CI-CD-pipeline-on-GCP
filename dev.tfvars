@@ -1,4 +1,4 @@
-project_id = "molten-snowfall-401102"
+project_id = "project_id"
 region = "asia-east1"
 machine_zone = "asia-east1-b"
 machine_type = "e2-micro"
